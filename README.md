@@ -10,9 +10,11 @@
   * Grid-based search: Dijkstra’s, A*, and their variants.
   * Sampling based algorithms: RRT and its variants.
 
-## II. Localization with Particle Filter
+## II. Overview
 
-[TODO]
+The goal of this lab is to provide you with tools that will help you in a head-to-head race on a race track. After finishing this lab, your car should be able to do something like [this](https://www.youtube.com/watch?v=llHCRqwIllM).
+
+Before you start this lab, you should read the [paper](https://arxiv.org/pdf/1105.1186.pdf}{https://arxiv.org/pdf/1105.1186.pdf). Pay close attention to sections 3.1, 3.2, Algorithm 3, 3.3, Algorithm 6.
 
 ## III. Pure Pursuit Implementation
 
