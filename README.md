@@ -4,7 +4,11 @@
 
 - Motion Planning basic concepts
   * Configuration space vs. Workspace: you should understand the difference between configuration space and workspace, and the advantages and disadvantages of planning in each of them.
-- Pure Pursuit Algorithm
+  * Free space vs. Obstacle space: you should understand the difference between free space and obstacle space.
+  * Occupancy grids and Costmaps: you should understand what occupancy grids and costmaps are, how to use them, and how to create them.
+- Motion Planning algorithms
+  * Grid-based search: Dijkstra’s, A*, and their variants.
+  * Sampling based algorithms: RRT and its variants.
 
 ## II. Localization with Particle Filter
 
