@@ -1,8 +1,9 @@
-# Lab 6: Pure Pursuit
+# Lab 7: Motion Planning
 
 ## I. Learning Goals
 
-- Localization with Particle Filter
+- Motion Planning basic concepts
+  * Configuration space vs. Workspace: you should understand the difference between configuration space and workspace, and the advantages and disadvantages of planning in each of them.
 - Pure Pursuit Algorithm
 
 ## II. Localization with Particle Filter
