@@ -33,6 +33,7 @@ Use the file `lab7_solutions_template.tex` in the latex folder to type up your a
 ### Grid world planning with Dijkstra's
 
 ![written](imgs/written.png)
+
 Figure 1
 
 Using figure 1, write out steps for Dijkstra's algorithm (8-connected, assume uniform cost for each action). At each step, list the grid cells in the open set with their running cost and the grid cells in the visited set. Write the final path found as a list of grid cell ids.
@@ -41,9 +42,31 @@ Using figure 1, write out steps for Dijkstra's algorithm (8-connected, assume un
 
 Using figure 1, write out steps for A* (8-connected, assume uniform cost for each action). At each step, list the grid cells in the open set with their f-value (use Manhattan distance to the goal as the heuristic function) and the grid cells in the visited set. Write the final path found as a list of grid cell ids.
 
-## IV. Visualizing Waypoints
+## IV. Part B: Coding assignment
 
-To visualize the list of waypoints you have, and to visualize the current waypoint you're picking, you'll need to use the `visualization_msgs` messages and RViz. You can find some information [here](http://wiki.ros.org/rviz/DisplayTypes/Marker).
+You can choose to implement RRT in either the workspace or configuration space. Since we're working with a car-like robot, the workspace will be the car's position in the world, and the configuration space will be whatever you decided to add on top of that (heading angle, velocity, etc.).
+
+Although we have provided skeleton code in both C++ and Python, we encourage you to implement this in C++ for higher performance. Although you could vectorize your code with numpy and use libraries like numba to speed up your Python code, we haven't implemented this lab in Python and can't guarantee any good performance. For reference, the code in the video is running at around 30 Hz on the car.
+
+### Where everything is
+
+### Working in the simulator and on the car
+
+### Using the ROS parameter server
+
+### Trajectory Execution
+
+### Hints
+
+## V. Part C: RRT* (Extra credit)
+
+![rrt](imgs/rrt.png)
+
+Figure 3
+
+You'll be rewarded extra credit (10\%) for implementing RRT*, or another modified version of RRT (if you do, make a good argument on why it deserves extra credit). On top of the basic version of RRT, RRT* uses a cost function, and rewiring the tree, to find a better path to the goal. When the tree has expanded infinite number of nodes, RRT*'s solution is close to optimal. Figure 3 shows the difference in the tree expanded and path found between RRT and RRT*. The skeleton code provided has sections for functions in RRT* as well.
+
+
 
 ## V: Grading Rubric
 - Compilation: **10** Points
