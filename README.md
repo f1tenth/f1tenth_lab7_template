@@ -50,6 +50,9 @@ Although we have provided skeleton code in both C++ and Python, we encourage you
 
 ### Where everything is
 
+The C++ skeleton source code `rrt.cpp` is in the `src` directory, and the header file \texttt{rrt.h} is in the \texttt{include} directory. The skeleton code for python is in the \texttt{scripts} directory.
+
+
 ### Working in the simulator and on the car
 
 ### Using the ROS parameter server
