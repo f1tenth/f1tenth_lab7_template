@@ -18,8 +18,9 @@ Before you start this lab, you should read the [paper](https://arxiv.org/pdf/110
 
 ### RRT Pseudocode
 
-The pseudocode of the basic version of RRT is listed as above. You can find all the details of the functions used by RRT in the paper. If you're implementing RRT*, or another version of RRT, read the RRT* section of the provided paper, and do some research to figure out how to modify the basic version of RRT.
+![rrt_algo](imgs/rrt_algo.png)
 
+The pseudocode of the basic version of RRT is listed as above. You can find all the details of the functions used by RRT in the paper. If you're implementing RRT*, or another version of RRT, read the RRT* section of the provided paper, and do some research to figure out how to modify the basic version of RRT.
 
 ### F1TENTH RRT vs. Generic RRT
 
@@ -28,7 +29,15 @@ In general, RRT is often used as a global planner where the tree is kept through
 
 ## III. Part A: Written assignment
 
-Please see the attached .pdf file for the written part.
+Use the file `lab7_solutions_template.tex` in the latex folder to type up your answers.
+
+### Grid world planning with Dijkstra's
+
+Using figure 1, write out steps for Dijkstra's algorithm (8-connected, assume uniform cost for each action). At each step, list the grid cells in the open set with their running cost and the grid cells in the visited set. Write the final path found as a list of grid cell ids.
+
+### Grid world planning with A*
+
+Using figure 1, write out steps for A* (8-connected, assume uniform cost for each action). At each step, list the grid cells in the open set with their f-value (use Manhattan distance to the goal as the heuristic function) and the grid cells in the visited set. Write the final path found as a list of grid cell ids.
 
 ## IV. Visualizing Waypoints
 
