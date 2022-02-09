@@ -16,13 +16,13 @@ The goal of this lab is to provide you with tools that will help you in a head-t
 
 Before you start this lab, you should read the [paper](https://arxiv.org/pdf/1105.1186.pdf}{https://arxiv.org/pdf/1105.1186.pdf). Pay close attention to sections 3.1, 3.2, Algorithm 3, 3.3, Algorithm 6.
 
-### - RRT Pseudocode
+### * RRT Pseudocode
 
 ![rrt_algo](imgs/rrt_algo.png)
 
 The pseudocode of the basic version of RRT is listed as above. You can find all the details of the functions used by RRT in the paper. If you're implementing RRT*, or another version of RRT, read the RRT* section of the provided paper, and do some research to figure out how to modify the basic version of RRT.
 
-### - F1TENTH RRT vs. Generic RRT
+### * F1TENTH RRT vs. Generic RRT
 
 In general, RRT is often used as a global planner where the tree is kept throughout the time steps. Whenever there is a new obstacle, and the occupancy grid changes, the tree will change accordingly. In our case, RRT is used as a local planner for obstacle avoidance. This is due to the fact that we don't have a well-defined starting point and goal point when we're racing on a track and we want to run continuous laps. In our implementation, we are only keeping a tree for the current time step in an area around the car. You could try to keep one tree that populates the map throughout the time steps, but speed is going to be an issue if you don't optimize how you're finding nodes, and traversing the tree.\\
 
