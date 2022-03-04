@@ -1,4 +1,4 @@
 # Lab 1: Automatic Emergency Braking
 
-## Docker Hub ID
+## Video Link
 (FILL ME IN)
