@@ -68,8 +68,7 @@ As usual, push your code to GitHub.
 Include a video to your RRT algorithm running. A visualization in RVIZ is required. You can also include a video of the car running RRT.
 
 ## VI: Grading Rubric
-- Compilation: **20** Points
-- Written answers: **10** Points
+- Compilation: **30** Points
 - Performance on straight path: **30** Points
 - Performance on turn: **30** Points
 - Video: **10** Points
