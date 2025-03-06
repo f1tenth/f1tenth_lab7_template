@@ -69,6 +69,8 @@ You'll be rewarded extra credit (10%) for implementing RRT*, or another modified
 
 ## VI: Grading Rubric
 - Compilation: **30** Points
-- Performance on straight path: **30** Points
-- Performance on turn: **30** Points
-- Video: **10** Points
+- Performance on straight path: **25** Points
+- Performance on turn: **25** Points
+- Videos:
+  - **10** Points working in Simulation
+  - **10** Points working on Car
