@@ -1,4 +1,4 @@
-# Lab 8: Model Predictive Control
+# Lab 7: Model Predictive Control
 
 ## I. Learning Goals
 
@@ -117,15 +117,23 @@ It might be helpful to visualize the current selected segment of reference path 
 
 ## VII. What the autograder runs
 
-In the [f1tenth_gym_ros](https://github.com/f1tenth/f1tenth_gym_ros/tree/dev-jazzy) simulator your node drives Levine. Set these in `config/sim.yaml` and your laptop run is the autograder's run: `map_path: 'maps/levine_blocked'`, `sx: -12.0`, `sy: 0.0`, `stheta: 0.0` (the stock start pose), driving counter-clockwise. The map comes with a centerline, so the simulator counts your laps (`/ego_racecar/lap_count`, and a `completed lap N, last lap X s` line in the bridge log). Those lap times are exactly what the autograder reports and what the leaderboard ranks: a lap runs from the finish line back to it, the 12 m from the start pose to the line are a run-up, so every lap is a flying lap.
+In the [f1tenth_gym_ros](https://github.com/f1tenth/f1tenth_gym_ros/tree/dev-jazzy) simulator your node drives the **two tracks** of the Pure Pursuit lab. Set the map and start pose in `config/sim.yaml` and your laptop run is the autograder's run:
 
-**One launch file.** The autograder starts your code with `mpc/launch/levine_launch.py`, and nothing else:
+| Track | `map_path` | `sx`, `sy`, `stheta` | Graded run |
+| --- | --- | --- | --- |
+| Levine | `'maps/levine_blocked'` | `-12.0`, `0.0`, `0.0` (the stock start pose) | three laps in a row, counter-clockwise |
+| Spielberg | `'maps/Spielberg'` | `14.59`, `3.92`, `-2.877` | one lap, in the direction of its centerline |
+
+Both maps come with a centerline, so the simulator counts your laps (`/ego_racecar/lap_count`, and a `completed lap N, last lap X s` line in the bridge log). Those lap times are exactly what the autograder reports and what the leaderboards rank: a lap runs from the finish line back to it, and both start poses sit before the line (12 m on Levine, 15 m on Spielberg), so every lap is a flying lap.
+
+**One launch file per track.** The autograder starts your code with the two launch files in `mpc/launch/`, and nothing else:
 
 ```bash
-ros2 launch mpc levine_launch.py
+ros2 launch mpc levine_launch.py      # three laps of Levine (and the pose checks)
+ros2 launch mpc spielberg_launch.py   # one lap of Spielberg
 ```
 
-It is yours to edit: set `EXECUTABLE` to the node you wrote (`mpc_node.py` for Python, `mpc_node` for C++), put your tuned values in `PARAMETERS` (or a `.yaml` config file), and start as many nodes as you like. Start your own nodes only: the autograder runs the simulator. Without the launch file the autograder falls back to `ros2 run mpc <executable>` with no parameter file, so tuned values must then be your node's defaults. Line F of your result tells you how your code was started.
+They are yours to edit: set `EXECUTABLE` to the node you wrote (`mpc_node.py` for Python, `mpc_node` for C++), put each track's tuned values in its `PARAMETERS` (or a `.yaml` config file), and start as many nodes as you like. Start your own nodes only: the autograder runs the simulator. Each file passes `track` (`levine` or `spielberg`), which the skeleton declares so your node knows which waypoints to load. Without a track's launch file the autograder falls back to `ros2 run mpc <executable> --ros-args -p track:=<track>` with no parameter file, so tuned values must then be your node's defaults. Line F of your result tells you how your code was started. For Spielberg the simulator ships a centerline and an optimised raceline, `maps/Spielberg_centerline.csv` and `maps/Spielberg_raceline.csv`: you may use either, reshape them, or make your own, with a speed profile that suits the track.
 
 **Ship your waypoints with your package.** Put your CSV files in `mpc/waypoints/`; the skeleton's `CMakeLists.txt` installs that folder, and your node finds it with `get_package_share_directory('mpc')` (Python, `ament_index_python.packages`) or `ament_index_cpp::get_package_share_directory("mpc")` (C++). A path like `/home/you/sim_ws/...` only exists on your laptop: on the autograder your node would die at start-up.
 
@@ -139,19 +147,20 @@ The autograder then does two things:
    - turned 60° left at 2 m/s, it must steer back to the right, and never command more than the car's steering limit, 0.4189 rad.
 
    Each comparison only asks which way the steering changes, so your path may be a centerline or a racing line.
-2. **Drives three laps in a row** of `levine_blocked`, counter-clockwise, from the stock start pose, without touching a wall. A run that ends early earns partial credit for the fraction covered; the fastest of the three laps goes to the leaderboard.
+2. **Drives three laps in a row** of `levine_blocked`, counter-clockwise, from the stock start pose, without touching a wall. A run that ends early earns partial credit for the fraction covered; the fastest of the three laps goes to the Levine leaderboard.
+3. **Drives one lap of Spielberg** from the start pose above, without touching a wall, with partial credit the same way; the lap time goes to the Spielberg leaderboard.
 
 ## VIII. Deliverables and Submission
 
-**This lab is done in teams**, the same teams as lab 4. Your team is already formed — you do not create one or invite anyone. **Every member of the team runs the same command**:
+**This lab is done in teams**, the same teams as lab 6. Your team is already formed — you do not create one or invite anyone. **Every member of the team runs the same command**:
 
 ```bash
-gh student accept RoboRacer-Class ese-6150 lab-8-model-predictive-control
+gh student accept RoboRacer-Class ese-6150 lab-7-model-predictive-control
 ```
 
-Whoever runs it first creates the team's shared repository, `ese-6150-lab-8-model-predictive-control-group-<n>`; everyone else gets `Repository already exists` and the same URL. All of you push to that one repository, so **pull before you push**. One submission is the whole team's submission, and every member gets the same grade.
+Whoever runs it first creates the team's shared repository, `ese-6150-lab-7-model-predictive-control-group-<n>`; everyone else gets `Repository already exists` and the same URL. All of you push to that one repository, so **pull before you push**. One submission is the whole team's submission, and every member gets the same grade.
 
-- **Deliverable 1**: Commit your `mpc` package to your team's repository, waypoints included. Your commited code should run smoothly in simulation: three laps of Levine in a row without touching a wall. The autograder watches the run, and the leaderboard keeps your team's fastest lap.
+- **Deliverable 1**: Commit your `mpc` package to your team's repository, waypoints included. Your commited code should run smoothly in simulation: three laps of Levine in a row and one lap of Spielberg, without touching a wall. The autograder watches both runs, and the leaderboards keep your team's fastest lap on each track.
 - **Deliverable 2**: Submit links to two videos in **`SUBMISSION.md`** (YouTube unlisted, or Google Drive shared as **"Anyone with the link can view"**): the car tracking waypoints with MPC in Levine in the simulator, and on the real car in Levine hallway.
 
 ### Submitting
@@ -165,23 +174,25 @@ git tag submission
 git push origin submission          # this triggers the autograder
 ```
 
-The autograder builds your package, checks your MPC and drives it around Levine in the simulator, then posts your score as a **Release** on your repo (check the Releases page or the commit's status check a few minutes after you tag). To resubmit, move the tag to a new commit:
+The autograder builds your package, checks your MPC and drives it around Levine and Spielberg in the simulator, then posts your score as a **Release** on your repo (check the Releases page or the commit's status check a few minutes after you tag). To resubmit, move the tag to a new commit:
 
 ```bash
 git tag -f submission
 git push --force origin submission
 ```
 
-The best scored `submission` push is counted as your team's final submission, and its grade is every member's grade for the lab. The leaderboard keeps your team's fastest clean lap.
+The best scored `submission` push is counted as your team's final submission, and its grade is every member's grade for the lab. The two leaderboards are independent: each keeps your team's fastest clean lap on its track, and each track has its own launch file, so one submission carries a tuning for Levine and another for Spielberg.
 
-**The autograder finds your work by name.** Package `mpc`, launch file `levine_launch.py` (or, without it, an executable it can start with `ros2 run mpc <executable>`, the skeleton's `mpc_node.py`), taking its pose from `/ego_racecar/odom` and publishing `AckermannDriveStamped` on `/drive`. Otherwise, the autograder will not be able to grade your work and your submission may get the wrong grade.
+**The autograder finds your work by name.** Package `mpc`, launch files `levine_launch.py` and `spielberg_launch.py` (or, without them, an executable it can start with `ros2 run mpc <executable> --ros-args -p track:=<track>`, the skeleton's `mpc_node.py`), taking its pose from `/ego_racecar/odom` and publishing `AckermannDriveStamped` on `/drive`. Otherwise, the autograder will not be able to grade your work and your submission may get the wrong grade.
 
 **Only the topics the lab needs.** Your nodes may read the simulator's localisation (`/ego_racecar/odom`, `/tf`), `/scan` and `/initialpose`, and publish on `/drive`, `/tf` and topics only your own nodes use (path and waypoint markers). The autograder watches the ROS graph while your code runs: a node that reads the lap counter or the collision flag, or publishes on a topic the simulator or the autograder listens to (`/initialpose`, which teleports the car, `/ego_racecar/odom`, the lap counter, ...) gets every line that ran your code scored 0.
 
 ## IX: Grading Rubric
 - Compilation: **10** Points (autograded)
 - Correct objectives and constraints: **50** Points (autograded without the simulator, 10 per check: your node is given the pose of a car standing to the left and to the right of your path, turned to the left and to the right, half way round a corner, standing still, and turned 60° off its path, and must steer the right way each time, pull away no faster than its acceleration limit allows, and keep within the steering limit)
-- Working path tracker: **20** Points (autograded in simulation: three counter-clockwise laps of `levine_blocked` in a row without touching a wall; a run that ends early earns partial credit for the fraction covered; the fastest of the three laps goes to the leaderboard)
+- Working path tracker: **30** Points
+  - **20** Points (autograded in simulation: three counter-clockwise laps of `levine_blocked` in a row without touching a wall; a run that ends early earns partial credit for the fraction covered; the fastest of the three laps goes to the Levine leaderboard)
+  - **10** Points (autograded in simulation: one lap of `Spielberg` without touching a wall, with partial credit; the lap time goes to the Spielberg leaderboard)
 - Videos (TA-graded from the links in `SUBMISSION.md`):
    - In sim: **10** Points
    - On Car: **10** Points

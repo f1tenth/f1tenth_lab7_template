@@ -70,9 +70,15 @@ class MPC(Node):
     """
     def __init__(self):
         super().__init__('mpc_node')
+        # launch/levine_launch.py sets track:=levine, launch/spielberg_launch.py track:=spielberg
+        self.declare_parameter('track', 'levine')
+        track = self.get_parameter('track').value
+
         # TODO: create ROS subscribers and publishers
         #       use the MPC as a tracker (similar to pure pursuit)
-        # TODO: get waypoints here
+        # TODO: load the waypoints of `track` from the package's installed waypoints/ folder:
+        #       os.path.join(get_package_share_directory('mpc'), 'waypoints', <your csv>)
+        #       (ament_index_python.packages). A path like /home/you/... only exists on your laptop.
         self.waypoints = None
 
         self.config = mpc_config()

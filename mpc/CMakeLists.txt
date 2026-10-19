@@ -14,6 +14,7 @@ endif()
 foreach(PACKAGE 
   ament_cmake 
   ament_cmake_python
+  ament_index_cpp
   rclcpp
   rclpy 
   geometry_msgs
@@ -57,7 +58,7 @@ if(OsqpEigen_FOUND)
   )
 
   ament_target_dependencies(mpc_node
-    rclcpp geometry_msgs ackermann_msgs nav_msgs sensor_msgs std_msgs visualization_msgs tf2 tf2_ros
+    ament_index_cpp rclcpp geometry_msgs ackermann_msgs nav_msgs sensor_msgs std_msgs visualization_msgs tf2 tf2_ros
   )
 
   target_link_libraries(mpc_node OsqpEigen::OsqpEigen)

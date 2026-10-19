@@ -22,10 +22,16 @@ using namespace mpc;
 class MPC : public rclcpp::Node {
 public:
     MPC() : Node("mpc_node") {
+        // launch/levine_launch.py sets track:=levine, launch/spielberg_launch.py track:=spielberg
+        std::string track = this->declare_parameter<std::string>("track", "levine");
+
         // TODO: create ROS subscribers and publishers
         //       use the MPC as a tracker (similar to pure pursuit)
 
-        // TODO: get waypoints here
+        // TODO: load the waypoints of `track` from the package's installed waypoints/ folder:
+        //       ament_index_cpp::get_package_share_directory("mpc") + "/waypoints/<your csv>"
+        //       (#include "ament_index_cpp/get_package_share_directory.hpp").
+        //       A path like /home/you/... only exists on your laptop.
         waypoints_ = Eigen::MatrixXd();  // Should be (4 x N) matrix: [x; y; yaw; v]
 
         config_ = Config();
