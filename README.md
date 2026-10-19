@@ -194,5 +194,5 @@ The best scored `submission` push is counted as your team's final submission, an
   - **20** Points (autograded in simulation: three counter-clockwise laps of `levine_blocked` in a row without touching a wall; a run that ends early earns partial credit for the fraction covered; the fastest of the three laps goes to the Levine leaderboard)
   - **10** Points (autograded in simulation: one lap of `Spielberg` without touching a wall, with partial credit; the lap time goes to the Spielberg leaderboard)
 - Videos (TA-graded from the links in `SUBMISSION.md`):
-   - In sim: **10** Points
-   - On Car: **10** Points
+   - In sim: **5** Points
+   - On Car: **5** Points
