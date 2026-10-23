@@ -33,10 +33,10 @@ class mpc_config:
     )  # input difference cost matrix, penalty for change of inputs - [accel, steering_speed]
     Qk: list = field(
         default_factory=lambda: np.diag([13.5, 13.5, 5.5, 13.0])
-    )  # state error cost matrix, for the the next (T) prediction time steps [x, y, delta, v, yaw, yaw-rate, beta]
+    )  # state error cost matrix, for the the next (T) prediction time steps [x, y, delta, v, yaw]
     Qfk: list = field(
         default_factory=lambda: np.diag([13.5, 13.5, 5.5, 13.0])
-    )  # final state error matrix, penalty  for the final state constraints: [x, y, delta, v, yaw, yaw-rate, beta]
+    )  # final state error matrix, penalty  for the final state constraints: [x, y, delta, v, yaw]
     # ---------------------------------------------------
 
     N_IND_SEARCH: int = 20  # Search index number
@@ -82,7 +82,6 @@ class MPC(Node):
         self.waypoints = None
 
         self.config = mpc_config()
-        self.odelta_v = None
         self.odelta = None
         self.oa = None
         self.init_flag = 0
@@ -104,16 +103,16 @@ class MPC(Node):
         # TODO: solve the MPC control problem
         (
             self.oa,
-            self.odelta_v,
+            self.odelta,
             ox,
             oy,
             oyaw,
             ov,
             state_predict,
-        ) = self.linear_mpc_control(ref_path, x0, self.oa, self.odelta_v)
+        ) = self.linear_mpc_control(ref_path, x0, self.oa, self.odelta)
 
         # TODO: publish drive message.
-        steer_output = self.odelta_v[0]
+        steer_output = self.odelta[0]
         speed_output = vehicle_state.v + self.oa[0] * self.config.DTK
 
     def mpc_prob_init(self):
